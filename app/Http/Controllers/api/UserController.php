@@ -13,10 +13,15 @@ class UserController extends Controller
         return User::all()->load('boards','groups');
     }
 
-
-
     public function show($id)
     {
         return User::find($id)->load('boards','groups');
     }
+
+    public function update($id,Request $request){
+        $user=User::find($id);
+        $user->avatar = $request->file('image')->store('user_avatars', 'public');
+        $user->save();
+    }
+
 }
